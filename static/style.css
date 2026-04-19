@@ -1,0 +1,71 @@
+body {
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.stat-card {
+  border-radius: 12px;
+  transition: transform 0.15s;
+}
+.stat-card:hover { transform: translateY(-2px); }
+
+.stat-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.control-box {
+  background: #fff;
+  transition: box-shadow 0.15s;
+  height: 100%;
+}
+.control-box:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+.console-box {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  min-height: 120px;
+  max-height: 320px;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.report-box {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', monospace;
+  font-size: 0.80rem;
+  min-height: 400px;
+  border-radius: 0 0 8px 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.card { border-radius: 12px; }
+.card-header { border-radius: 12px 12px 0 0 !important; }
+
+.table > :not(caption) > * > * { padding: 0.5rem 0.75rem; }
+.sticky-top { top: 0; z-index: 1; }

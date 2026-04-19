@@ -1,0 +1,192 @@
+=================================================================
+  FORENSIC INVESTIGATION REPORT
+  Generated : 2026-04-19 19:52:34
+  Database  : C:\Users\HP\OneDrive\Desktop\Minor-Project\sample_db\bank.db
+=================================================================
+
+[1] AUDIT TRAIL
+-----------------------------------------------------------------
+  Total entries: 54
+
+  [2026-04-19 13:51:07]  INSERT   accounts        id=1  user=system
+           new -> {'id': 1, 'name': 'Alice Sharma', 'email': 'alice@bank.com', 'balance': 95000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=2  user=system
+           new -> {'id': 2, 'name': 'Bob Verma', 'email': 'bob@bank.com', 'balance': 42000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=3  user=system
+           new -> {'id': 3, 'name': 'Carol Singh', 'email': 'carol@bank.com', 'balance': 120000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=4  user=system
+           new -> {'id': 4, 'name': 'David Mehta', 'email': 'david@bank.com', 'balance': 18500.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=5  user=system
+           new -> {'id': 5, 'name': 'Eve Patel', 'email': 'eve@bank.com', 'balance': 67000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=6  user=system
+           new -> {'id': 6, 'name': "Frank D'souza", 'email': 'frank@bank.com', 'balance': 53000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=7  user=system
+           new -> {'id': 7, 'name': 'Grace Nair', 'email': 'grace@bank.com', 'balance': 84000.0}
+  [2026-04-19 13:51:07]  INSERT   accounts        id=8  user=system
+           new -> {'id': 8, 'name': 'Hemal Joshi', 'email': 'hemal@bank.com', 'balance': 31000.0}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=1  user=system
+           new -> {'id': 1, 'account_id': 1, 'amount': 1457.85, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=2  user=system
+           new -> {'id': 2, 'account_id': 1, 'amount': 2893.0, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=3  user=system
+           new -> {'id': 3, 'account_id': 1, 'amount': 4075.83, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=4  user=system
+           new -> {'id': 4, 'account_id': 2, 'amount': 4087.93, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=5  user=system
+           new -> {'id': 5, 'account_id': 2, 'amount': 713.38, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=6  user=system
+           new -> {'id': 6, 'account_id': 2, 'amount': 1091.92, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=7  user=system
+           new -> {'id': 7, 'account_id': 3, 'amount': 4150.57, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=8  user=system
+           new -> {'id': 8, 'account_id': 3, 'amount': 838.1, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=9  user=system
+           new -> {'id': 9, 'account_id': 3, 'amount': 4703.46, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=10  user=system
+           new -> {'id': 10, 'account_id': 4, 'amount': 1791.79, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=11  user=system
+           new -> {'id': 11, 'account_id': 4, 'amount': 577.37, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=12  user=system
+           new -> {'id': 12, 'account_id': 4, 'amount': 2025.12, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=13  user=system
+           new -> {'id': 13, 'account_id': 5, 'amount': 3984.57, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=14  user=system
+           new -> {'id': 14, 'account_id': 5, 'amount': 1392.31, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=15  user=system
+           new -> {'id': 15, 'account_id': 5, 'amount': 1335.51, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=16  user=system
+           new -> {'id': 16, 'account_id': 6, 'amount': 2348.11, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=17  user=system
+           new -> {'id': 17, 'account_id': 6, 'amount': 3247.14, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=18  user=system
+           new -> {'id': 18, 'account_id': 6, 'amount': 1816.26, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=19  user=system
+           new -> {'id': 19, 'account_id': 7, 'amount': 1396.84, 'type': 'transfer'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=20  user=system
+           new -> {'id': 20, 'account_id': 7, 'amount': 4887.78, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=21  user=system
+           new -> {'id': 21, 'account_id': 7, 'amount': 734.94, 'type': 'deposit'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=22  user=system
+           new -> {'id': 22, 'account_id': 8, 'amount': 818.46, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=23  user=system
+           new -> {'id': 23, 'account_id': 8, 'amount': 1000.06, 'type': 'withdrawal'}
+  [2026-04-19 13:51:07]  INSERT   transactions    id=24  user=system
+           new -> {'id': 24, 'account_id': 8, 'amount': 1127.69, 'type': 'deposit'}
+  [2026-04-19 13:51:11]  DELETE   accounts        id=3  user=system
+           old -> {'id': 3, 'name': 'Carol Singh', 'email': 'carol@bank.com', 'balance': 120000.0}
+  [2026-04-19 13:51:11]  DELETE   accounts        id=1  user=system
+           old -> {'id': 1, 'name': 'Alice Sharma', 'email': 'alice@bank.com', 'balance': 95000.0}
+  [2026-04-19 13:51:11]  INSERT   transactions    id=25  user=system
+           new -> {'id': 25, 'account_id': 6, 'amount': 130955.72, 'type': 'transfer'}
+  [2026-04-19 13:51:11]  UPDATE   accounts        id=5  user=system
+           old -> {'id': 5, 'name': 'Eve Patel', 'balance': 67000.0}
+           new -> {'id': 5, 'name': 'Eve Patel', 'balance': 5370114.75}
+  [2026-04-19 13:51:11]  DELETE   transactions    id=6  user=system
+           old -> {'id': 6, 'account_id': 2, 'amount': 1091.92, 'type': 'withdrawal'}
+  [2026-04-19 13:51:11]  DELETE   transactions    id=7  user=system
+           old -> {'id': 7, 'account_id': 3, 'amount': 4150.57, 'type': 'deposit'}
+  [2026-04-19 13:51:11]  DELETE   transactions    id=9  user=system
+           old -> {'id': 9, 'account_id': 3, 'amount': 4703.46, 'type': 'withdrawal'}
+  [2026-04-19 13:51:12]  DELETE   transactions    id=11  user=system
+           old -> {'id': 11, 'account_id': 4, 'amount': 577.37, 'type': 'withdrawal'}
+  [2026-04-19 13:51:12]  DELETE   transactions    id=18  user=system
+           old -> {'id': 18, 'account_id': 6, 'amount': 1816.26, 'type': 'transfer'}
+  [2026-04-19 13:51:12]  DELETE   transactions    id=16  user=system
+           old -> {'id': 16, 'account_id': 6, 'amount': 2348.11, 'type': 'deposit'}
+  [2026-04-19 13:51:12]  DELETE   transactions    id=8  user=system
+           old -> {'id': 8, 'account_id': 3, 'amount': 838.1, 'type': 'transfer'}
+  [2026-04-19 14:20:12]  DELETE   accounts        id=7  user=system
+           old -> {'id': 7, 'name': 'Grace Nair', 'email': 'grace@bank.com', 'balance': 84000.0}
+  [2026-04-19 14:20:12]  DELETE   accounts        id=2  user=system
+           old -> {'id': 2, 'name': 'Bob Verma', 'email': 'bob@bank.com', 'balance': 42000.0}
+  [2026-04-19 14:20:13]  UPDATE   accounts        id=4  user=system
+           old -> {'id': 4, 'name': 'David Mehta', 'balance': 18500.0}
+           new -> {'id': 4, 'name': 'Unknown Person', 'balance': 18500.0}
+  [2026-04-18 04:28:27]  SELECT   accounts        id=0  user=attacker
+           new -> {'query': 'SELECT * FROM accounts', 'rows_returned': 8}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=1  user=system
+           old -> {'id': 1, 'account_id': 1, 'amount': 1457.85, 'type': 'deposit'}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=15  user=system
+           old -> {'id': 15, 'account_id': 5, 'amount': 1335.51, 'type': 'deposit'}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=2  user=system
+           old -> {'id': 2, 'account_id': 1, 'amount': 2893.0, 'type': 'transfer'}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=3  user=system
+           old -> {'id': 3, 'account_id': 1, 'amount': 4075.83, 'type': 'deposit'}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=4  user=system
+           old -> {'id': 4, 'account_id': 2, 'amount': 4087.93, 'type': 'transfer'}
+  [2026-04-19 14:20:13]  DELETE   transactions    id=17  user=system
+           old -> {'id': 17, 'account_id': 6, 'amount': 3247.14, 'type': 'transfer'}
+  [2026-04-19 14:20:13]  UPDATE   accounts        id=4  user=system
+           old -> {'id': 4, 'name': 'Unknown Person', 'balance': 18500.0}
+           new -> {'id': 4, 'name': 'Unknown Person', 'balance': 0.0}
+
+
+[2] INTEGRITY CHECK
+-----------------------------------------------------------------
+  Rows checked : 54
+  Result : TAMPERING DETECTED — 22 issue(s)
+    !! Row 33 exists in audit_log but has NO stored hash → possible injection
+    !! Row 34 exists in audit_log but has NO stored hash → possible injection
+    !! Row 35 exists in audit_log but has NO stored hash → possible injection
+    !! Row 36 exists in audit_log but has NO stored hash → possible injection
+    !! Row 37 exists in audit_log but has NO stored hash → possible injection
+    !! Row 38 exists in audit_log but has NO stored hash → possible injection
+    !! Row 39 exists in audit_log but has NO stored hash → possible injection
+    !! Row 40 exists in audit_log but has NO stored hash → possible injection
+    !! Row 41 exists in audit_log but has NO stored hash → possible injection
+    !! Row 42 exists in audit_log but has NO stored hash → possible injection
+    !! Row 43 exists in audit_log but has NO stored hash → possible injection
+    !! Row 44 exists in audit_log but has NO stored hash → possible injection
+    !! Row 45 exists in audit_log but has NO stored hash → possible injection
+    !! Row 46 exists in audit_log but has NO stored hash → possible injection
+    !! Row 47 exists in audit_log but has NO stored hash → possible injection
+    !! Row 48 exists in audit_log but has NO stored hash → possible injection
+    !! Row 49 exists in audit_log but has NO stored hash → possible injection
+    !! Row 50 exists in audit_log but has NO stored hash → possible injection
+    !! Row 51 exists in audit_log but has NO stored hash → possible injection
+    !! Row 52 exists in audit_log but has NO stored hash → possible injection
+    !! Row 53 exists in audit_log but has NO stored hash → possible injection
+    !! Row 54 exists in audit_log but has NO stored hash → possible injection
+
+
+[3] DELETED RECORD RECOVERY
+-----------------------------------------------------------------
+  4 page(s) with recoverable fragments:
+
+  Page 1 (offset 0x1000):
+    Names    : Eve Pateleve, David Mehtadavid, Grace Nairgrace, Unknown Persondavid, Hemal Joshihemal, Carol Singhcarol, Frank D'souzafrank
+    Emails   : Persondavid@bank.com, Pateleve@bank.com, Nairgrace@bank.com, Singhcarol@bank.com, souzafrank@bank.com
+  Page 2 (offset 0x2000):
+    Emails   : 6carol@bank.com, alice@bank.com, grace@bank.com, bob@bank.com
+  Page 5 (offset 0x5000):
+    Names    : Alice Sharma, Grace Nair, Hemal Joshi, Carol Singh, Frank D'souza, David Mehta, Eve Patel, Bob Verma
+    Emails   : alice@bank.com, grace@bank.com, bob@bank.com, carol@bank.com
+    Balances : 4075.83, 1396.84, 3984.57, 2025.12, 4703.46, 1335.51, 1791.79, 1127.69, 1457.85, 3247.14, 4887.78, 4087.93, 1091.92, 2348.11, 1816.26, 1392.31, 1000.06, 4150.57
+  Page 8 (offset 0x8000):
+    Names    : Unknown Person, Grace Nair, David Mehta, Eve Patel, Bob Verma
+    Emails   : grace@bank.com, bob@bank.com
+    Balances : 4075.83, 4703.46, 1335.51, 1457.85, 1816.26, 4087.93, 1091.92, 2348.11, 3247.14, 130955.72, 4150.57
+
+
+[4] ANOMALY DETECTION
+-----------------------------------------------------------------
+  Entries analysed : 54
+  Alerts raised    : 5
+
+  [!] BULK DELETE: 9 deletes within 60s at 2026-04-19 13:51:11 by user(s): system
+  [!] OFF-HOURS: SELECT on accounts id=0 at 04:28:27 by attacker
+  [!] BALANCE WIPE: account id=4 18500.0 -> 0.0
+  [!] NAME TAMPER: account id=4 'David Mehta' → 'Unknown Person' by system
+  [!] LARGE TRANSACTION: id=25 amount=130955.72 type=transfer at 2026-04-19 13:51:11 by system
+
+
+[5] SUMMARY
+-----------------------------------------------------------------
+  Overall status : CRITICAL — log tampering detected
+  Integrity      : FAIL
+  Anomalies      : 5
+  Recovery hits  : 4 page(s)
+
+=================================================================
+  END OF REPORT
+=================================================================

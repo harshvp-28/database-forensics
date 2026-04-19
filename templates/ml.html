@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="ambient-bg" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&family=Fira+Code&display=swap');
+
+:root {
+  --ink:       #1a1025;
+  --amber:     #f4a832;
+  --amber-lt:  #ffd07a;
+  --coral:     #e8614d;
+  --violet:    #6c3fc5;
+  --violet-lt: #9b72ef;
+  --cream:     #fdf6ec;
+  --glass-bg:  rgba(255,255,255,0.07);
+  --glass-bdr: rgba(255,255,255,0.14);
+  --shadow:    0 8px 32px rgba(26,16,37,0.35);
+  --radius:    18px;
+  --radius-sm: 10px;
+}
+
+body { background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif; }
+.ambient-bg { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
+.orb { position:absolute;border-radius:50%;filter:blur(90px);opacity:0.38;animation:drift 20s ease-in-out infinite alternate; }
+.orb-1 { width:500px;height:500px;background:radial-gradient(circle,#6c3fc5,transparent 70%);top:-110px;left:-90px;animation-duration:22s; }
+.orb-2 { width:420px;height:420px;background:radial-gradient(circle,#e8614d,transparent 70%);top:35%;right:-110px;animation-duration:26s;animation-delay:-9s; }
+.orb-3 { width:360px;height:360px;background:radial-gradient(circle,#f4a832,transparent 70%);bottom:-70px;left:42%;animation-duration:24s;animation-delay:-5s; }
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(38px,28px) scale(1.07)}}
+.grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.5;pointer-events:none;}
+
+.dash-wrap { position:relative;z-index:1;padding:2rem 2rem 4rem;max-width:1280px;margin:0 auto; }
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fade-1{animation:fadeUp .5s .05s ease both}.fade-2{animation:fadeUp .5s .10s ease both}
+.fade-3{animation:fadeUp .5s .15s ease both}.fade-4{animation:fadeUp .5s .20s ease both}
+.fade-5{animation:fadeUp .5s .25s ease both}.fade-6{animation:fadeUp .5s .30s ease both}
+
+/* ── Header ── */
+.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.2rem}
+.page-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;background:linear-gradient(120deg,var(--amber-lt),var(--cream) 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0}
+.page-subtitle{color:rgba(253,246,236,.45);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.btn-back{background:var(--glass-bg);border:1px solid var(--glass-bdr);color:var(--cream);border-radius:var(--radius-sm);padding:.45rem 1rem;font-size:.82rem;cursor:pointer;backdrop-filter:blur(10px);transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn-back:hover{background:rgba(255,255,255,.13);transform:translateY(-1px);color:var(--cream)}
+
+/* ── Info banner ── */
+.info-banner{background:linear-gradient(135deg,rgba(108,63,197,.2),rgba(244,168,50,.1));border:1px solid rgba(108,63,197,.3);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1.8rem;display:flex;align-items:flex-start;gap:1rem}
+.info-banner-icon{font-size:1.6rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(108,63,197,.6))}
+.info-banner-title{font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:600;color:var(--violet-lt);margin-bottom:.3rem}
+.info-banner-text{font-size:.82rem;color:rgba(253,246,236,.5);line-height:1.65;margin:0}
+.info-banner-badges{display:flex;gap:.5rem;margin-top:.8rem}
+.badge-pill{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.badge-violet{background:rgba(108,63,197,.25);color:var(--violet-lt);border:1px solid rgba(108,63,197,.4)}
+.badge-amber{background:rgba(244,168,50,.2);color:var(--amber);border:1px solid rgba(244,168,50,.35)}
+
+/* ── Alert ── */
+.dash-alert{background:linear-gradient(135deg,rgba(232,97,77,.18),rgba(244,168,50,.12));border:1px solid rgba(232,97,77,.4);border-radius:var(--radius-sm);padding:.85rem 1.2rem;font-size:.88rem;color:#ffd07a;display:flex;align-items:center;gap:10px}
+
+/* ── Stat grid ── */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.8rem}
+@media(max-width:768px){.stat-grid{grid-template-columns:1fr}}
+.stat-card{background:var(--glass-bg);border:1px solid var(--glass-bdr);border-radius:var(--radius);padding:1.5rem 1.2rem;backdrop-filter:blur(18px);text-align:center;position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.stat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,transparent 60%);pointer-events:none}
+.stat-num{font-family:'Playfair Display',Georgia,serif;font-size:2.8rem;font-weight:700;line-height:1;margin-bottom:6px}
+.stat-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(253,246,236,.4)}
+.num-violet{color:var(--violet-lt)}.num-coral{color:#f08070}.num-amber{color:var(--amber)}
+.stat-card.card-alert{background:linear-gradient(135deg,rgba(232,97,77,.12),var(--glass-bg))}
+
+/* ── Section cards ── */
+.section-card{background:var(--glass-bg);border:1px solid var(--glass-bdr);border-radius:var(--radius);backdrop-filter:blur(18px);overflow:hidden;margin-bottom:1.6rem}
+.section-hdr{padding:.85rem 1.3rem;border-bottom:1px solid var(--glass-bdr);font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.hdr-danger{background:linear-gradient(90deg,rgba(232,97,77,.25),rgba(255,255,255,.03));color:#f08070}
+.hdr-neutral{background:linear-gradient(90deg,rgba(155,114,239,.18),rgba(244,168,50,.08));color:var(--amber-lt)}
+.hdr-violet{background:linear-gradient(90deg,rgba(108,63,197,.25),rgba(255,255,255,.03));color:var(--violet-lt)}
+.section-body{padding:1.3rem}
+
+/* ── Chart area ── */
+.chart-wrap{padding:1.3rem;background:rgba(0,0,0,.15);border-radius:0 0 var(--radius) var(--radius)}
+
+/* ── Risk table ── */
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.data-table thead th{padding:.6rem 1rem;background:rgba(255,255,255,.04);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,246,236,.4);border-bottom:1px solid var(--glass-bdr);font-weight:500}
+.data-table tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+.data-table tbody tr:hover{background:rgba(255,255,255,.04)}
+.data-table tbody tr:last-child{border-bottom:none}
+.data-table td{padding:.65rem 1rem;color:rgba(253,246,236,.8);vertical-align:middle}
+.row-anomaly{background:rgba(232,97,77,.08)!important}
+.row-anomaly:hover{background:rgba(232,97,77,.14)!important}
+
+/* ── Progress bar ── */
+.risk-bar-wrap{display:flex;align-items:center;gap:8px}
+.risk-bar-track{flex-grow:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.risk-bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.bar-high{background:linear-gradient(90deg,#c73d28,var(--coral))}
+.bar-mid{background:linear-gradient(90deg,#c88c00,var(--amber))}
+.bar-low{background:linear-gradient(90deg,#1a9c5b,#2dd47e)}
+.risk-pct{font-size:.78rem;font-weight:600;color:var(--cream);min-width:34px;text-align:right}
+
+/* ── Badges ── */
+.txn-badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.badge-insert{background:rgba(46,212,126,.18);color:#2dd47e;border:1px solid rgba(46,212,126,.3)}
+.badge-update{background:rgba(244,168,50,.18);color:var(--amber);border:1px solid rgba(244,168,50,.3)}
+.badge-delete{background:rgba(232,97,77,.18);color:#f08070;border:1px solid rgba(232,97,77,.3)}
+.badge-other{background:rgba(155,114,239,.18);color:var(--violet-lt);border:1px solid rgba(155,114,239,.3)}
+.badge-system{background:rgba(255,255,255,.08);color:rgba(253,246,236,.5);border:1px solid rgba(255,255,255,.12)}
+.badge-foreign{background:rgba(232,97,77,.18);color:#f08070;border:1px solid rgba(232,97,77,.3)}
+.badge-anomaly{background:rgba(232,97,77,.2);color:#f08070;border:1px solid rgba(232,97,77,.35);font-weight:700}
+.badge-normal{background:rgba(46,212,126,.15);color:#2dd47e;border:1px solid rgba(46,212,126,.25)}
+
+/* ── Feature table ── */
+.feat-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.feat-table thead th{padding:.6rem 1rem;font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,246,236,.35);border-bottom:1px solid var(--glass-bdr);font-weight:500}
+.feat-table tbody tr{border-bottom:1px solid rgba(255,255,255,.04)}
+.feat-table tbody tr:last-child{border-bottom:none}
+.feat-table td{padding:.7rem 1rem;font-size:.81rem;color:rgba(253,246,236,.7);vertical-align:top}
+.feat-num{color:var(--amber);font-family:'Fira Code',monospace;font-size:.78rem}
+.feat-name{color:var(--cream);font-weight:500}
+.feat-why{color:rgba(253,246,236,.45);font-size:.76rem}
+</style>
+
+<div class="dash-wrap">
+
+  <!-- Header -->
+  <div class="page-header fade-1">
+    <div>
+      <h2 class="page-title">🤖 ML Anomaly Detection</h2>
+      <p class="page-subtitle">Isolation Forest — unsupervised anomaly scoring</p>
+    </div>
+    <a href="/forensics" class="btn-back">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Forensics
+    </a>
+  </div>
+
+  <!-- How it works -->
+  <div class="info-banner fade-2">
+    <div class="info-banner-icon">🌲</div>
+    <div>
+      <div class="info-banner-title">How Isolation Forest works</div>
+      <p class="info-banner-text">
+        Each audit log entry is converted into 8 numeric features (hour, action type, amount, balance, user type, etc.).
+        The model randomly isolates data points — anomalous entries are isolated faster because they differ from the majority.
+        Risk score 0–100: higher = more suspicious.
+      </p>
+      <div class="info-banner-badges">
+        <span class="badge-pill badge-violet">Unsupervised</span>
+        <span class="badge-pill badge-amber">No labelled data needed</span>
+      </div>
+    </div>
+  </div>
+
+  {% if not db_ready %}
+  <div class="dash-alert">⚠ Database not found. Run Setup from the dashboard first.</div>
+
+  {% elif not summary.available %}
+  <div class="dash-alert">ℹ {{ summary.reason }}</div>
+
+  {% else %}
+
+  <!-- Stat cards -->
+  <div class="stat-grid fade-3">
+    <div class="stat-card">
+      <div class="stat-num num-violet">{{ summary.total_scored }}</div>
+      <div class="stat-label">Entries Scored</div>
+    </div>
+    <div class="stat-card {% if summary.anomaly_count > 0 %}card-alert{% endif %}">
+      <div class="stat-num num-coral">{{ summary.anomaly_count }}</div>
+      <div class="stat-label">ML Anomalies Detected</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num num-amber">
+        {{ summary.top_anomalies[0].risk if summary.top_anomalies else 0 }}%
+      </div>
+      <div class="stat-label">Highest Risk Score</div>
+    </div>
+  </div>
+
+  <!-- Risk chart -->
+  <div class="section-card fade-4">
+    <div class="section-hdr hdr-neutral">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Risk Score Distribution
+    </div>
+    <div class="chart-wrap">
+      <canvas id="riskChart" height="80"></canvas>
+    </div>
+  </div>
+
+  <!-- Top anomalies table -->
+  <div class="section-card fade-5">
+    <div class="section-hdr hdr-danger">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Top Riskiest Entries (Isolation Forest)
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr><th>Log ID</th><th>Risk Score</th><th>Label</th><th>Action</th><th>Table</th><th>Timestamp</th><th>User</th></tr>
+        </thead>
+        <tbody>
+          {% for r in summary.top_anomalies %}
+          <tr class="{% if r.label == 'ANOMALY' %}row-anomaly{% endif %}">
+            <td style="color:rgba(253,246,236,.45);font-size:.78rem">{{ r.entry.id }}</td>
+            <td style="min-width:140px">
+              <div class="risk-bar-wrap">
+                <div class="risk-bar-track">
+                  <div class="risk-bar-fill {% if r.risk > 75 %}bar-high{% elif r.risk > 50 %}bar-mid{% else %}bar-low{% endif %}"
+                       style="width:{{ r.risk }}%"></div>
+                </div>
+                <span class="risk-pct">{{ r.risk }}%</span>
+              </div>
+            </td>
+            <td>
+              <span class="txn-badge {% if r.label == 'ANOMALY' %}badge-anomaly{% else %}badge-normal{% endif %}">
+                {{ r.label }}
+              </span>
+            </td>
+            <td>
+              <span class="txn-badge
+                {% if r.entry.action == 'INSERT' %}badge-insert
+                {% elif r.entry.action == 'UPDATE' %}badge-update
+                {% elif r.entry.action == 'DELETE' %}badge-delete
+                {% else %}badge-other{% endif %}">
+                {{ r.entry.action }}
+              </span>
+            </td>
+            <td style="color:rgba(253,246,236,.7)">{{ r.entry.table_name }}</td>
+            <td style="color:rgba(253,246,236,.38);font-size:.75rem;font-family:'Fira Code',monospace">{{ r.entry.timestamp }}</td>
+            <td>
+              <span class="txn-badge {% if r.entry.db_user == 'system' %}badge-system{% else %}badge-foreign{% endif %}">
+                {{ r.entry.db_user }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section-card fade-6">
+    <div class="section-hdr hdr-violet">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Features Used by the Model
+    </div>
+    <div style="overflow-x:auto">
+      <table class="feat-table">
+        <thead>
+          <tr><th>#</th><th>Feature</th><th>Values</th><th>Why it matters</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat-num">01</td><td class="feat-name">Hour of day</td><td>0–23</td><td class="feat-why">Off-hours activity is suspicious</td></tr>
+          <tr><td class="feat-num">02</td><td class="feat-name">Action type</td><td>INSERT=0, UPDATE=1, DELETE=2</td><td class="feat-why">DELETEs are riskier than INSERTs</td></tr>
+          <tr><td class="feat-num">03</td><td class="feat-name">Is weekend</td><td>0 or 1</td><td class="feat-why">Weekend access often unauthorized</td></tr>
+          <tr><td class="feat-num">04</td><td class="feat-name">Is off-hours</td><td>0 or 1</td><td class="feat-why">Direct flag for midnight–5AM access</td></tr>
+          <tr><td class="feat-num">05</td><td class="feat-name">Amount</td><td>Transaction value</td><td class="feat-why">Unusually large amounts signal fraud</td></tr>
+          <tr><td class="feat-num">06</td><td class="feat-name">Balance after</td><td>Account balance post-change</td><td class="feat-why">Zero or extreme balances are suspicious</td></tr>
+          <tr><td class="feat-num">07</td><td class="feat-name">Non-system user</td><td>0=system, 1=other</td><td class="feat-why">Unknown users are higher risk</td></tr>
+          <tr><td class="feat-num">08</td><td class="feat-name">Record ID</td><td>Numeric ID</td><td class="feat-why">Very high IDs may indicate injected rows</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if summary and summary.available %}
+<script>
+const results = {{ summary.results | tojson }};
+const labels  = results.map(r => 'ID ' + r.entry.id);
+const risks   = results.map(r => r.risk);
+const colors  = risks.map(r =>
+  r > 75 ? 'rgba(232,97,77,0.85)' :
+  r > 50 ? 'rgba(244,168,50,0.85)' :
+           'rgba(46,212,126,0.75)'
+);
+const borderColors = risks.map(r =>
+  r > 75 ? 'rgba(232,97,77,1)' :
+  r > 50 ? 'rgba(244,168,50,1)' :
+           'rgba(46,212,126,1)'
+);
+
+new Chart(document.getElementById('riskChart'), {
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Risk Score (%)',
+      data: risks,
+      backgroundColor: colors,
+      borderColor: borderColors,
+      borderWidth: 1,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(26,16,37,0.95)',
+        borderColor: 'rgba(244,168,50,0.3)',
+        borderWidth: 1,
+        titleColor: '#ffd07a',
+        bodyColor: 'rgba(253,246,236,0.7)',
+        callbacks: {
+          afterLabel: ctx => {
+            const r = results[ctx.dataIndex];
+            return [
+              'Action: ' + r.entry.action,
+              'Table: '  + r.entry.table_name,
+              'User: '   + r.entry.db_user,
+              'Label: '  + r.label
+            ];
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 100,
+        title: { display: true, text: 'Risk Score (%)', color: 'rgba(253,246,236,0.4)' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        ticks: { color: 'rgba(253,246,236,0.4)' }
+      },
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: 'rgba(253,246,236,0.35)', font: { size: 10 } }
+      }
+    }
+  }
+});
+</script>
+{% endif %}
+{% endblock %}

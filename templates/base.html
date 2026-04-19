@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DB Forensics Tool</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand fw-bold" href="/">
+    <i class="bi bi-shield-lock-fill text-danger me-2"></i>DB Forensics Tool
+  </a>
+  <div class="navbar-nav ms-auto">
+    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">
+      <i class="bi bi-speedometer2 me-1"></i>Dashboard
+    </a>
+    <a class="nav-link {% if request.path == '/ml' %}active{% endif %}" href="/ml">
+      <i class="bi bi-cpu me-1"></i>ML Detection
+    </a>
+    <a class="nav-link {% if request.path == '/forensics' %}active{% endif %}" href="/forensics">
+      <i class="bi bi-search me-1"></i>Forensics
+    </a>
+    <a class="nav-link {% if request.path == '/report' %}active{% endif %}" href="/report">
+      <i class="bi bi-file-text me-1"></i>Report
+    </a>
+
+    <div class="vr bg-secondary mx-2 opacity-50"></div>
+    <button class="btn btn-outline-danger btn-sm my-auto" onclick="runReset()">
+      <i class="bi bi-trash me-1"></i>Reset DB
+    </button>
+  </div>
+</nav>
+
+<div class="container-fluid px-4 py-4">
+  {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script>
+  async function runReset() {
+    if (!confirm("This will delete the database. Are you sure?")) return;
+    const res = await fetch("/api/reset", { method: "POST" });
+    const data = await res.json();
+    alert(data.output);
+    window.location.href = "/";   // always go back to dashboard after reset
+  }
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

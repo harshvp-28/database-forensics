@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Ambient background -->
+<div class="ambient-bg" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&family=Fira+Code&display=swap');
+
+:root {
+  --ink:       #1a1025;
+  --ink-soft:  #2e2040;
+  --amber:     #f4a832;
+  --amber-lt:  #ffd07a;
+  --coral:     #e8614d;
+  --violet:    #6c3fc5;
+  --violet-lt: #9b72ef;
+  --cream:     #fdf6ec;
+  --glass-bg:  rgba(255,255,255,0.07);
+  --glass-bdr: rgba(255,255,255,0.14);
+  --shadow:    0 8px 32px rgba(26,16,37,0.35);
+  --radius:    18px;
+  --radius-sm: 10px;
+}
+
+body { background: var(--ink); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+.ambient-bg { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.orb { position:absolute; border-radius:50%; filter:blur(90px); opacity:0.4; animation:drift 20s ease-in-out infinite alternate; }
+.orb-1 { width:520px;height:520px; background:radial-gradient(circle,#6c3fc5,transparent 70%); top:-120px;left:-100px; animation-duration:22s; }
+.orb-2 { width:440px;height:440px; background:radial-gradient(circle,#e8614d,transparent 70%); top:40%;right:-120px; animation-duration:26s;animation-delay:-9s; }
+.orb-3 { width:380px;height:380px; background:radial-gradient(circle,#f4a832,transparent 70%); bottom:-80px;left:40%; animation-duration:24s;animation-delay:-5s; }
+@keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(38px,28px) scale(1.07)} }
+.grain { position:fixed;inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); opacity:0.5; pointer-events:none; }
+
+.dash-wrap { position:relative;z-index:1; padding:2rem 2rem 4rem; max-width:1280px;margin:0 auto; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.fade-1{animation:fadeUp .5s .05s ease both}
+.fade-2{animation:fadeUp .5s .10s ease both}
+.fade-3{animation:fadeUp .5s .15s ease both}
+.fade-4{animation:fadeUp .5s .20s ease both}
+.fade-5{animation:fadeUp .5s .25s ease both}
+
+/* ── Header ── */
+.page-header { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.2rem; }
+.page-title { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.7rem,3vw,2.4rem); font-weight:700; background:linear-gradient(120deg,var(--amber-lt),var(--cream) 60%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; margin:0; }
+.page-subtitle { color:rgba(253,246,236,.45); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; margin-top:4px; }
+.btn-back { background:var(--glass-bg);border:1px solid var(--glass-bdr);color:var(--cream);border-radius:var(--radius-sm);padding:.45rem 1rem;font-size:.82rem;cursor:pointer;backdrop-filter:blur(10px);transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px; }
+.btn-back:hover { background:rgba(255,255,255,.13);transform:translateY(-1px);color:var(--cream); }
+
+/* ── Alert ── */
+.dash-alert { background:linear-gradient(135deg,rgba(232,97,77,.18),rgba(244,168,50,.12));border:1px solid rgba(232,97,77,.4);border-radius:var(--radius-sm);padding:.85rem 1.2rem;margin-bottom:1.6rem;font-size:.88rem;color:#ffd07a;display:flex;align-items:center;gap:10px; }
+
+/* ── Summary grid ── */
+.summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.8rem; }
+@media(max-width:900px){.summary-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.summary-grid{grid-template-columns:1fr}}
+
+.sum-card { background:var(--glass-bg);border:1px solid var(--glass-bdr);border-radius:var(--radius);padding:1.4rem 1rem;backdrop-filter:blur(18px);text-align:center;position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s; }
+.sum-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.sum-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,transparent 60%);pointer-events:none}
+.sum-emoji { font-size:2rem;margin-bottom:.6rem;display:block;filter:drop-shadow(0 0 10px rgba(244,168,50,.4)); }
+.sum-label { font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:.95rem;color:var(--cream);margin-bottom:3px; }
+.sum-sub   { font-size:.72rem;letter-spacing:.06em;text-transform:uppercase; }
+.sum-clean { color:#2dd47e } .sum-warn { color:var(--amber) } .sum-alert { color:var(--coral) } .sum-info { color:var(--violet-lt) } .sum-neutral { color:rgba(253,246,236,.45) }
+
+.sum-card.card-clean { background:linear-gradient(135deg,rgba(46,212,126,.12),rgba(255,255,255,.05)) }
+.sum-card.card-alert { background:linear-gradient(135deg,rgba(232,97,77,.14),rgba(255,255,255,.05)) }
+.sum-card.card-warn  { background:linear-gradient(135deg,rgba(244,168,50,.12),rgba(255,255,255,.05)) }
+.sum-card.card-info  { background:linear-gradient(135deg,rgba(108,63,197,.14),rgba(255,255,255,.05)) }
+
+/* ── Section cards ── */
+.section-card { background:var(--glass-bg);border:1px solid var(--glass-bdr);border-radius:var(--radius);backdrop-filter:blur(18px);overflow:hidden;margin-bottom:1.6rem; }
+.section-hdr { padding:.85rem 1.3rem;border-bottom:1px solid var(--glass-bdr);font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:600;display:flex;align-items:center;gap:8px; }
+.hdr-success { background:linear-gradient(90deg,rgba(46,212,126,.25),rgba(255,255,255,.03));color:#2dd47e; }
+.hdr-danger  { background:linear-gradient(90deg,rgba(232,97,77,.25),rgba(255,255,255,.03));color:#f08070; }
+.hdr-warning { background:linear-gradient(90deg,rgba(244,168,50,.25),rgba(255,255,255,.03));color:var(--amber); }
+.hdr-info    { background:linear-gradient(90deg,rgba(108,63,197,.25),rgba(255,255,255,.03));color:var(--violet-lt); }
+.hdr-neutral { background:linear-gradient(90deg,rgba(155,114,239,.18),rgba(244,168,50,.08));color:var(--amber-lt); }
+.section-body { padding:1.3rem; }
+
+/* ── Integrity ── */
+.integrity-meta { font-size:.85rem;color:rgba(253,246,236,.7);margin-bottom:1rem; }
+.integrity-meta strong { color:var(--cream); }
+.pill { display:inline-block;padding:2px 12px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase; }
+.pill-ok   { background:rgba(46,212,126,.18);color:#2dd47e;border:1px solid rgba(46,212,126,.3); }
+.pill-bad  { background:rgba(232,97,77,.18);color:#f08070;border:1px solid rgba(232,97,77,.3); }
+.pill-warn { background:rgba(244,168,50,.18);color:var(--amber);border:1px solid rgba(244,168,50,.3); }
+
+.issue-list { list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem; }
+.issue-item { background:rgba(232,97,77,.1);border:1px solid rgba(232,97,77,.2);border-radius:8px;padding:.5rem .9rem;font-size:.8rem;color:#f5b0a5;display:flex;align-items:flex-start;gap:8px; }
+
+/* ── Anomaly alerts ── */
+.anomaly-list { display:flex;flex-direction:column;gap:.5rem; }
+.anomaly-item { border-radius:10px;padding:.65rem 1rem;font-size:.83rem;display:flex;align-items:flex-start;gap:10px; }
+.anomaly-danger  { background:rgba(232,97,77,.12);border:1px solid rgba(232,97,77,.25);color:#f5b0a5; }
+.anomaly-warning { background:rgba(244,168,50,.1);border:1px solid rgba(244,168,50,.25);color:#ffd07a; }
+.anomaly-info    { background:rgba(108,63,197,.12);border:1px solid rgba(108,63,197,.3);color:var(--violet-lt); }
+.anomaly-icon    { margin-top:1px;flex-shrink:0; }
+.no-issues { color:#2dd47e;font-size:.88rem;display:flex;align-items:center;gap:8px; }
+
+/* ── Recovery fragments ── */
+.fragment-note { font-size:.8rem;color:rgba(253,246,236,.45);margin-bottom:1rem;line-height:1.6; }
+.frag-box { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem;margin-bottom:.8rem; }
+.frag-box:last-child{margin-bottom:0}
+.frag-page { font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:.95rem;color:var(--amber-lt); }
+.frag-offset { font-size:.72rem;color:rgba(253,246,236,.35);margin-left:.5rem;font-family:'Fira Code',monospace; }
+.frag-row { font-size:.8rem;margin-top:.5rem;color:rgba(253,246,236,.65); }
+.frag-row strong { color:var(--cream); }
+
+/* ── Audit table ── */
+.data-table { width:100%;border-collapse:collapse;font-size:.82rem; }
+.data-table thead th { padding:.6rem 1rem;background:rgba(255,255,255,.04);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,246,236,.4);border-bottom:1px solid var(--glass-bdr);font-weight:500; }
+.data-table tbody tr { border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s; }
+.data-table tbody tr:hover { background:rgba(255,255,255,.04); }
+.data-table tbody tr:last-child{border-bottom:none}
+.data-table td { padding:.65rem 1rem;color:rgba(253,246,236,.8);vertical-align:middle; }
+.row-delete { background:rgba(232,97,77,.09)!important }
+.row-delete:hover { background:rgba(232,97,77,.15)!important }
+.row-update { background:rgba(244,168,50,.07)!important }
+.row-update:hover { background:rgba(244,168,50,.13)!important }
+.row-foreign { background:rgba(108,63,197,.08)!important }
+
+.txn-badge { display:inline-block;padding:2px 10px;border-radius:20px;font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase; }
+.badge-insert   { background:rgba(46,212,126,.18);color:#2dd47e;border:1px solid rgba(46,212,126,.3); }
+.badge-update   { background:rgba(244,168,50,.18);color:var(--amber);border:1px solid rgba(244,168,50,.3); }
+.badge-delete   { background:rgba(232,97,77,.18);color:#f08070;border:1px solid rgba(232,97,77,.3); }
+.badge-other    { background:rgba(155,114,239,.18);color:var(--violet-lt);border:1px solid rgba(155,114,239,.3); }
+.badge-system   { background:rgba(255,255,255,.08);color:rgba(253,246,236,.5);border:1px solid rgba(255,255,255,.12); }
+.badge-foreign  { background:rgba(232,97,77,.18);color:#f08070;border:1px solid rgba(232,97,77,.3); }
+
+.table-scroll { max-height:400px;overflow-y:auto; }
+.table-scroll::-webkit-scrollbar { width:5px; }
+.table-scroll::-webkit-scrollbar-track { background:rgba(255,255,255,.04); }
+.table-scroll::-webkit-scrollbar-thumb { background:rgba(244,168,50,.3);border-radius:4px; }
+</style>
+
+<div class="dash-wrap">
+
+  <!-- Header -->
+  <div class="page-header fade-1">
+    <div>
+      <h2 class="page-title">🔍 Forensic Analysis</h2>
+      <p class="page-subtitle">Real-time investigation results</p>
+    </div>
+    <a href="/report" class="btn-back">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      View Full Report
+    </a>
+  </div>
+
+  {% if not db_ready %}
+  <div class="dash-alert">⚠ Database not found. Run Setup from the dashboard first.</div>
+  {% else %}
+
+  <!-- Summary cards -->
+  <div class="summary-grid fade-2">
+    <div class="sum-card {% if integrity.ok %}card-clean{% else %}card-alert{% endif %}">
+      <span class="sum-emoji">{% if integrity.ok %}✅{% else %}🚨{% endif %}</span>
+      <div class="sum-label">Integrity</div>
+      <div class="sum-sub {% if integrity.ok %}sum-clean{% else %}sum-alert{% endif %}">
+        {% if integrity.ok %}Clean{% else %}{{ integrity.issues|length }} issue(s){% endif %}
+      </div>
+    </div>
+    <div class="sum-card {% if anomalies.alert_count > 0 %}card-warn{% else %}card-clean{% endif %}">
+      <span class="sum-emoji">{% if anomalies.alert_count > 0 %}⚠️{% else %}✅{% endif %}</span>
+      <div class="sum-label">Anomalies</div>
+      <div class="sum-sub {% if anomalies.alert_count > 0 %}sum-warn{% else %}sum-clean{% endif %}">{{ anomalies.alert_count }} alert(s)</div>
+    </div>
+    <div class="sum-card {% if fragments %}card-info{% else %}card-clean{% endif %}">
+      <span class="sum-emoji">{% if fragments %}🔍{% else %}✅{% endif %}</span>
+      <div class="sum-label">Recovery</div>
+      <div class="sum-sub {% if fragments %}sum-info{% else %}sum-clean{% endif %}">{{ fragments|length }} page(s) with deleted data</div>
+    </div>
+    <div class="sum-card">
+      <span class="sum-emoji">📋</span>
+      <div class="sum-label">Audit Trail</div>
+      <div class="sum-sub sum-neutral">{{ audit|length }} entries logged</div>
+    </div>
+  </div>
+
+  <!-- Integrity Check -->
+  <div class="section-card fade-3">
+    <div class="section-hdr {% if integrity.ok %}hdr-success{% else %}hdr-danger{% endif %}">
+      {% if integrity.ok %}
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      {% else %}
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {% endif %}
+      Hash Chain Verification
+    </div>
+    <div class="section-body">
+      <p class="integrity-meta">
+        <strong>Rows checked:</strong> {{ integrity.total_rows_checked }} &nbsp;&nbsp;
+        <strong>Status:</strong>
+        <span class="pill {% if integrity.ok %}pill-ok{% else %}pill-bad{% endif %}">
+          {% if integrity.ok %}All hashes match{% else %}Tampering detected{% endif %}
+        </span>
+      </p>
+      {% if integrity.issues %}
+      <ul class="issue-list">
+        {% for issue in integrity.issues %}
+        <li class="issue-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          {{ issue }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Anomaly Detection -->
+  <div class="section-card fade-3">
+    <div class="section-hdr {% if anomalies.alert_count > 0 %}hdr-warning{% else %}hdr-success{% endif %}">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Anomaly Detection — {{ anomalies.alert_count }} Alert(s)
+    </div>
+    <div class="section-body">
+      {% if tagged_alerts %}
+      <div class="anomaly-list">
+        {% for alert, severity in tagged_alerts %}
+        <div class="anomaly-item anomaly-{{ severity }}">
+          <span class="anomaly-icon">
+            {% if severity == 'danger' %}⚡{% elif severity == 'warning' %}⚠{% else %}ℹ{% endif %}
+          </span>
+          <span>{{ alert }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-issues">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        No anomalies detected.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Deleted Record Recovery -->
+  <div class="section-card fade-4">
+    <div class="section-hdr hdr-info">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Deleted Record Recovery — Raw Binary Scan
+    </div>
+    <div class="section-body">
+      {% if fragments %}
+      <p class="fragment-note">
+        Found <strong style="color:var(--violet-lt)">{{ fragments|length }}</strong> database page(s) containing recoverable data fragments.
+        These records were deleted via SQL but remain physically in the .db file.
+      </p>
+      {% for f in fragments %}
+      <div class="frag-box">
+        <span class="frag-page">Page {{ f.page }}</span>
+        <span class="frag-offset">{{ f.offset_hex }}</span>
+        {% if f.possible_names %}
+        <div class="frag-row"><strong>Names:</strong> {{ f.possible_names|join(", ") }}</div>
+        {% endif %}
+        {% if f.possible_emails %}
+        <div class="frag-row"><strong>Emails:</strong> {{ f.possible_emails|join(", ") }}</div>
+        {% endif %}
+        {% if f.possible_balances %}
+        <div class="frag-row"><strong>Balances:</strong> {{ f.possible_balances|join(", ") }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% else %}
+      <p class="no-issues">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        No recoverable deleted data found.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Audit Trail -->
+  <div class="section-card fade-5">
+    <div class="section-hdr hdr-neutral">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Audit Trail — {{ audit|length }} Entries
+    </div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Action</th><th>Table</th><th>Record</th><th>Timestamp</th><th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in audit %}
+          <tr class="
+            {% if e.action == 'DELETE' %}row-delete
+            {% elif e.action == 'UPDATE' %}row-update
+            {% elif e.db_user not in ['system'] %}row-foreign
+            {% endif %}">
+            <td style="color:rgba(253,246,236,.45);font-size:.78rem">{{ e.id }}</td>
+            <td>
+              <span class="txn-badge
+                {% if e.action == 'INSERT' %}badge-insert
+                {% elif e.action == 'UPDATE' %}badge-update
+                {% elif e.action == 'DELETE' %}badge-delete
+                {% else %}badge-other{% endif %}">
+                {{ e.action }}
+              </span>
+            </td>
+            <td style="color:rgba(253,246,236,.7)">{{ e.table_name }}</td>
+            <td style="color:var(--cream);font-weight:600">{{ e.record_id }}</td>
+            <td style="color:rgba(253,246,236,.38);font-size:.76rem;font-family:'Fira Code',monospace">{{ e.timestamp }}</td>
+            <td>
+              <span class="txn-badge {% if e.db_user == 'system' %}badge-system{% else %}badge-foreign{% endif %}">
+                {{ e.db_user }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endif %}
+</div>
+{% block scripts %}
+
+{% endblock %}
+{% endblock %}
