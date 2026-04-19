@@ -248,4 +248,4 @@ def view_report():
         return "Report not yet generated. Run Forensic Analysis first.", 404
     return send_file(path, mimetype="application/pdf", as_attachment=False)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
